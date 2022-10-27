@@ -38,11 +38,11 @@ plain='\033[0m'
 cur_dir=$( pwd )
 software=(Shadowsocks-Python ShadowsocksR Shadowsocks-Go Shadowsocks-libev)
 
-libsodium_file="libsodium-1.0.17"
-libsodium_url="https://github.com/jedisct1/libsodium/releases/download/1.0.17/libsodium-1.0.17.tar.gz"
+libsodium_file="libsodium-1.0.18"
+libsodium_url="https://github.com/jedisct1/libsodium/releases/download/1.0.18-RELEASE/libsodium-1.0.18.tar.gz"
 
-mbedtls_file="mbedtls-2.16.1"
-mbedtls_url="https://tls.mbed.org/download/mbedtls-2.16.1-gpl.tgz"
+mbedtls_file="mbedtls-3.2.1"
+mbedtls_url="https://github.com/Mbed-TLS/mbedtls/archive/refs/tags/v3.2.1.tar.gz"
 
 shadowsocks_python_file="shadowsocks-master"
 shadowsocks_python_url="https://github.com/shadowsocks/shadowsocks/archive/master.zip"
@@ -862,9 +862,9 @@ install_libsodium(){
 install_mbedtls(){
     if [ ! -f /usr/lib/libmbedtls.a ]; then
         cd ${cur_dir}
-        download "${mbedtls_file}-gpl.tgz" "${mbedtls_url}"
-        tar xf ${mbedtls_file}-gpl.tgz
-        cd ${mbedtls_file}
+        download "${mbedtls_file}.tar.gz" "${mbedtls_url}"
+        tar zxf "${mbedtls_file}.tar.gz"
+        cd "${mbedtls_file}" || exit
         make SHARED=1 CFLAGS=-fPIC
         make DESTDIR=/usr install
         if [ $? -ne 0 ]; then
